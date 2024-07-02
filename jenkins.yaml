@@ -1,0 +1,21 @@
+- name: Setup Elixir Server
+  hosts: jenkins
+
+  tasks:
+    - name: Add Jenkins User
+      ansible.builtin.user:
+        name: jenkins
+        shell: /bin/bash
+        password: '$2y$10$tS1jCiFLaX.xSbcGKErB8e4h8IvCTo7jjL0gj3o6c/oZMJRzbFvHO'
+
+    - name: Clone Script folder
+      ansible.builtin.git:
+        repo: 'https://github.com/akhilnarang/scripts.git'
+        dest: /tmp/scripts
+        version: master
+
+    - name: Run the script
+      ansible.builtin.command: bash ./setup/android_build_env.sh
+      args:
+        chdir: /tmp/scripts
+      

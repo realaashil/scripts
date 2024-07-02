@@ -1,0 +1,14 @@
+- name: Add An User
+  hosts: myserver
+
+  tasks:
+    - name: Add User
+      ansible.builtin.user:
+        name: samrth012
+        shell: /bin/bash
+        password: '$6$0akan36.TDMnZ7du$x2whyOmOAPnlgwM0zZ9sgvVLGxUqJ8ajbAm8CijxA16EO/W.0ruVZvhp8LFj8o9pKs7aXuEZH8l5EbOkwiBF00'
+      notify: Change Password
+
+  handlers:
+    - name: Change Password
+      command: "chage -d 0 samrth012"
