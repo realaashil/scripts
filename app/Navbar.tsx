@@ -2,9 +2,14 @@
 import React from "react";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button } from "@nextui-org/react";
 import { NavBarMenu } from "./NavBarMenu";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
+import { useTheme } from "next-themes";
+import ThemeSwitcher from "./components/ThemeSwitcher";
 
 export function Nav() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { theme, setTheme } = useTheme();
+
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full">
       <NavbarContent>
@@ -13,7 +18,7 @@ export function Nav() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <p className="font-bold text-inherit text-pink-500">PortFolio Website</p>
+          <p className="font-bold">PortFolio Website</p>
         </NavbarBrand>
       </NavbarContent>
 
@@ -34,14 +39,16 @@ export function Nav() {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      <NavbarContent justify="end">
+      <NavbarContent justify="end" className="gap-2">
         <NavbarItem>
-          <Button as={Link} color="warning" href="#" variant="flat">
-            Contact Me
-          </Button>
+          <ThemeSwitcher />
         </NavbarItem>
-        < NavBarMenu />
+        <NavbarItem>
+          <Link color="foreground" isBlock isExternal href="#" className="pb-2">
+            Contact
+          </Link>
+        </NavbarItem>
       </NavbarContent>
-    </Navbar>
+    </Navbar >
   )
 }
